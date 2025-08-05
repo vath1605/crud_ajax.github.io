@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <style>
@@ -54,8 +54,8 @@
         </ul>
     </section>
 </aside>
-<main class="float-end py-3 pe-2" style="width: 84.75vw; height: 93.55vh;">
-    <section id="display" style="width: 100%; height: 100%;" >
+<main class="float-end py-3 pe-2" style="width: 84vw; height: 93.55vh;">
+    <section id="display" style="width: 100%; height: 100%; overflow-y: scroll; scrollbar-width: none;" >
 
     </section>
 </main>
@@ -73,7 +73,7 @@
             $('#view').addClass('active');
         }
         $.ajax({
-            url: currentPage + '.html',
+            url: currentPage + '.php',
             method:'GET',
             success: function(res){
             $('#display').html(res);
@@ -86,7 +86,7 @@
             $('li a').removeClass('active');
             $(this).addClass('active');
             $.ajax({
-            url: page + '.html',
+            url: page + '.php',
             method:'GET',
             success: function(res){
             $('#display').html(res);
