@@ -27,7 +27,7 @@
                 <option value="0">0%</option>
                 <option value="25">25%</option>
                 <option value="50">50%</option>
-                <option value="75">70%</option>
+                <option value="75">75%</option>
             </select>
         </div>
         <div class="col-4">
@@ -36,7 +36,7 @@
         </div>
         <div class="col-12">
             <label for="description" class="form-label">Input Product Description <span class="text-danger">*</span></label>
-            <textarea id="description" class="form-control" rows="8" placeholder="Product Description"></textarea>
+            <textarea id="description" class="form-control" rows="20" placeholder="Product Description"></textarea>
         </div>
         <div class="col-8"></div>
         <div class="col-4 d-flex gap-2 justify-content-end">
@@ -59,9 +59,8 @@
             let price = $('#price');
             let qty = $('#qty');
             let des = $('#description');
-            let total = Math.ceil(price.val() * qty.val());
-            let pay = Math.ceil(total - (discount.val()*total)/100);
-            // console.log(name,title,discount,price,qty,des);
+            let total =(price.val() * qty.val()).toFixed(2);
+            let pay = (total - (discount.val()*total)/100).toFixed(2);
             $.ajax({
                 url: "insert.php",
                 method:"POST",
