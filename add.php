@@ -1,5 +1,5 @@
-<form class="container pt-5">
-    <div class="row g-3">
+<form class="container-fluid p-5">
+    <div class="row gy-3">
         <div class="col-12 mb-4">
             <h2 class="d-flex align-items-center gap-2"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -50,6 +50,7 @@
         </div>
     </div>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function(){
         $('#btnSave').click(function(){
@@ -77,11 +78,23 @@
                 },
                 success: function (response) {
                     if(response == '168'){
-                        alert('Insert success.');
+                        Swal.fire({
+                            title: "The Work Completed.",
+                            text: "Information Inserted Successfully.",
+                            icon: "success"
+                            });
                     }else if(response == '101'){
-                        alert('Cannot insert');
+                        Swal.fire({
+                            icon: "error",
+                            title: "Work Not Complete.",
+                            text: "Please Fill Out All Fields."
+                            });
                     }else{
-                        console.log(response);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Work Not Complete.",
+                            text: response
+                            });
                     }
                     name.val('');
                     title.val('');
