@@ -49,10 +49,10 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-warning">
+                                        <button type="button" value="<?= $stock['id'] ?>" class="btn btn-warning btnEdit">
                                             <i class="fa-solid fa-pen-to-square"></i>   
                                             Edit</button>
-                                        <button type="button" class="btn btn-danger">
+                                        <button data-id="<?= $stock['id'] ?>" type="button" class="btn btn-danger btnDelete">
                                             <i class="fa-solid fa-trash"></i>
                                             Delete</button>
                                         <button type="button" data-id="<?= $stock['id'] ?>" class="btn btn-success btnPay <?= ($stock['isPay']) == 0 ? '':'disabled' ?>">
@@ -102,9 +102,7 @@
                             title: "The Work Completed.",
                             text: "The product payment is paid.",
                             icon: "success"
-                            }).then(function(){
-                                window.location.reload();
-                            });
+                            })
                         }else if(res == '007'){
                             Swal.fire({
                             icon: "error",
@@ -126,9 +124,81 @@
                             text: err
                             });
                         }
+                    }).then(function(){
+                        $.ajax({
+                            url: "pay.php",
+                            method: "GET",
+                            success: function (res) {
+                                $('#display').html(res);
+                            }
+                        });
                     });
                     }
                     });
+            })
+        })
+        $('.btnEdit').each(function(){
+            $(this).click(function(){
+                let id = $(this).val();
+                $.ajax({
+                    url: "edit.php",
+                    data: {
+                        id: id,
+                        scope: 'edit'
+                    },
+                    method:'POST',
+                    success: function(res) {
+                        $('#display').html(res)
+                    }
+                });
+            })
+        })
+        $('.btnDelete').each(function(){
+            $(this).click(function(){
+                let id = $(this).data('id');
+                Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "delete.php",
+                        data: {
+                            id: id,
+                            scope: 'delete'
+                        },
+                        method:"POST",
+                        success: function(res) {
+                            if(res == '168'){
+                                Swal.fire({
+                                    title: "The Work Completed.",
+                                    text: "Information Deleted Successfully.",
+                                    icon: "success"
+                                });
+                            }else{
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Work Not Complete.",
+                                    text: "Something gone wrong !"
+                                });
+                            }
+                        }
+                    }).then(function(){
+                        $.ajax({
+                            url: "pay.php",
+                            method: "GET",
+                            success: function (res) {
+                                $('#display').html(res);
+                            }
+                        });
+                    });
+                }
+                });
             })
         })
     })
