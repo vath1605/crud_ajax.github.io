@@ -41,6 +41,7 @@
             </select>
         </div>
         <div class="col-4">
+            <input type="hidden" id="pay" value="<?= $data['pay'] ?>">
             <label for="qty" class="form-label">Input Product QTY <span class="text-danger">*</span></label>
             <input value="<?= $data['qty'] ?>" type="number" class="form-control" placeholder="Product QTY" id="qty">
         </div>
@@ -81,7 +82,10 @@
             let qty = $('#qty');
             let des = $('#description');
             let total =(price.val() * qty.val()).toFixed(2);
-            let pay = (total - (discount.val()*total)/100).toFixed(2);
+            let payment = $('#pay');
+            let pay = parseFloat((total - (discount.val() * total) / 100).toFixed(2));
+            let isPay = (pay > parseFloat(payment.val())) ? 1 : 0;
+
             $.ajax({
                 url: "update.php",
                 data: {
@@ -94,6 +98,7 @@
                     des: des.val(),
                     total: total,
                     pay: pay,
+                    isPay: isPay,
                     scope: 'update'
                 },
                 method: 'POST',

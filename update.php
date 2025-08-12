@@ -10,7 +10,7 @@
         $des = $_POST['des'];
         $total = $_POST['total'];
         $pay = $_POST['pay'];
-
+        $isPay = $_POST['isPay'];
         $query_update = "UPDATE tbl_product SET
             name = '$name',
             title = '$title',
@@ -20,7 +20,7 @@
             dis = '$discount',
             total = '$total',
             pay = '$pay',
-            isPay = '0'
+            isPay = '$isPay'
         WHERE id = '$id'
         ";
 
